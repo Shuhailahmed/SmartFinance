@@ -29,8 +29,8 @@ app.use(helmet());
 const allowedOrigins = [
   "http://localhost:5173",
   "https://smart-finance-swart.vercel.app",
+  "https://smart-finance-fza8870um-shuhail-ahmeds-projects.vercel.app",
 ];
-
 app.use(
   cors({
     origin: (origin, callback) => {
