@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:5000/api",
+  baseURL: "https://smartfinance-backend-clyv.onrender.com/api",
 });
 
 // Attach authentication token to every API request
@@ -14,7 +14,6 @@ api.interceptors.request.use(
       config.headers.Authorization = `Bearer ${token}`;
     }
 
-    // Let Axios/browser configure multipart FormData headers.
     if (config.data instanceof FormData) {
       delete config.headers["Content-Type"];
     } else {
