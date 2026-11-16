@@ -126,14 +126,26 @@ const registerUser = async (req, res, next) => {
       });
     }
 
-    await createAndSendOTP(user);
+    try {
+      await createAndSendOTP(user);
 
-    return res.status(201).json({
-      success: true,
-      message: "OTP sent to your email. Please verify your email.",
-      email: user.email,
-      requiresVerification: true,
-    });
+      return res.status(201).json({
+        success: true,
+        message: "OTP sent to your email. Please verify your email.",
+        email: user.email,
+        requiresVerification: true,
+      });
+    } catch (emailError) {
+      console.error("Registration email error:", emailError.message);
+
+      return res.status(503).json({
+        success: false,
+        message:
+          "Your account details are saved, but verification email could not be sent. Please try requesting a new OTP later.",
+        email: user.email,
+        requiresVerification: true,
+      });
+    }
   } catch (error) {
     console.error("Registration error:", error);
 
